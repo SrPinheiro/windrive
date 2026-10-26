@@ -29,4 +29,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public static function needsSetup(): bool
+    {
+        return static::count() === 1 && static::whereNull('password')->exists();
+    }
 }
